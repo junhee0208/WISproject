@@ -18,7 +18,7 @@ services:
     container_name: db-server
     environment:
       MYSQL_ROOT_PASSWORD: "66778899"
-      MYSQL_DATABASE: "DbWIS"
+      MYSQL_DATABASE: "dbwis"
     volumes:
       - ~/data/mysql:/var/lib/mysql
     ports:
