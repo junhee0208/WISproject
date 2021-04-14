@@ -16,28 +16,28 @@ if(isset($_POST["submit"])){
 		exit();
 	}
 
-	if(invalidUid($username) !== false){
+	if(ValidUid($username) !== false){
 		header("location: ../signup.php?error=invaliduid");
 		exit();
 	}
 
-	if(invalidEmail($email) !== false){
+	if(ValidEmail($email) !== false){
 		header("location: ../signup.php?error=invalidemail");
 		exit();
 	}
 
-	if(pwdMatch($pwd, $pwdrepeat) !== false){
+	if(PwdMatch($pwd, $pwdrepeat) !== false){
 		header("location: ../signup.php?error=passwordnotmatch");
 		exit();
 	}
 
-	if(uidExist($conn, $username) !== false){
+	if(UidExist($conn, $username) !== false){
 		header("location: ../signup.php?error=usernametaken");
 		exit();
 	}
 
 
-	createUser($conn, $name, $email, $username, $pwd);
+	CreateUser($conn, $name, $email, $username, $pwd);
 }
 else{
 	header("location: ../signup.php");

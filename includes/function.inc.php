@@ -1,6 +1,6 @@
 ﻿<?php
 
-function emptyInputSignup($name, $email, $username, $pwd, $pwdrepeat)
+function EmptyInputSignup($name, $email, $username, $pwd, $pwdrepeat)
 {
 	$result;
 
@@ -16,7 +16,7 @@ function emptyInputSignup($name, $email, $username, $pwd, $pwdrepeat)
 }
 
 
-function invalidUid($username)
+function ValidUid($username)
 {
 	$result;
 	if( !preg_match("/^[a-zA-Z0-9]*$/", $username))
@@ -30,7 +30,7 @@ function invalidUid($username)
 	return $result;
 }
 
-function invalidEmail($email){
+function ValidEmail($email){
 
 	$result;
 	if(!filter_var($email, FILTER_VALIDATE_EMAIL))
@@ -44,7 +44,7 @@ function invalidEmail($email){
 	return $result;
 }
 
-function pwdMatch($pwd, $pwdrepeat)
+function PwdMatch($pwd, $pwdrepeat)
 {
 	$result;
 	if($pwd !== $pwdrepeat)
@@ -58,55 +58,66 @@ function pwdMatch($pwd, $pwdrepeat)
 	return $result;
 }
 
-function uidExist($conn, $username)
+function UidExist($conn, $username)
 {
 	$sql = "SELECT * FROM users WHERE userUid = ?;";
 	$stmt = mysqli_stmt_init($conn);
 
-	if(!mysqli_stmt_prepare($stmt, $sql)){
-		header("location: ../signup.php?error=stmtfailed");
-		exit();
+	try{
+		if(!mysqli_stmt_prepare($stmt, $sql)){
+			header("location: ../signup.php?error=stmtfailed");
+			exit();
+		}
+	
+		mysqli_stmt_bind_param($stmt, "s", $username);
+		mysqli_stmt_execute($stmt);
+	
+		$resultData = mysqli_stmt_get_result($stmt);
+	
+		if($row = mysqli_fetch_assoc($resultData)){
+			return $row;
+		}
+		else{
+			$result = false;
+			return $result;
+		}
+	}catch(Exception $e){
+		echo 'Message: ' .$e->getMessage();
 	}
-
-	mysqli_stmt_bind_param($stmt, "s", $username);
-	mysqli_stmt_execute($stmt);
-
-	$resultData = mysqli_stmt_get_result($stmt);
-
-	if($row = mysqli_fetch_assoc($resultData)){
-		return $row;
-	}
-	else{
-		$result = false;
-		return $result;
-	}
+	
 
 	mysqli_stmt_close($stmt);
 }
 
 
-function createUser($conn, $name, $email, $username, $pwd)
+function CreateUser($conn, $name, $email, $username, $pwd)
 {
 	$sql = "INSERT INTO users (userName, userEmail, userUid, userPwd) VALUES(?, ?, ?, ?)";
 	$stmt = mysqli_stmt_init($conn);
 
-	if(!mysqli_stmt_prepare($stmt, $sql)){
-		header("location: ../signup.php?error=stmtfailed");
+	try{
+		if(!mysqli_stmt_prepare($stmt, $sql)){
+			header("location: ../signup.php?error=stmtfailed");
+			exit();
+		}
+	
+	
+		$hashedPwd = password_hash($pwd, PASSWORD_DEFAULT);
+	
+		mysqli_stmt_bind_param($stmt, "ssss", $name, $email, $username, $hashedPwd);
+		mysqli_stmt_execute($stmt);
+		mysqli_stmt_close($stmt);
+	
+		header("location: ../login.php?error=none");
 		exit();
+
+	}catch(Exception $e){
+		echo 'Message: ' .$e->getMessage();
 	}
-
-
-	$hashedPwd = password_hash($pwd, PASSWORD_DEFAULT);
-
-	mysqli_stmt_bind_param($stmt, "ssss", $name, $email, $username, $hashedPwd);
-	mysqli_stmt_execute($stmt);
-	mysqli_stmt_close($stmt);
-
-	header("location: ../login.php?error=none");
-	exit();
+	
 }
 
-function emptyInputLogin($username, $pwd)
+function EmptyInputLogin($username, $pwd)
 {
 	$result;
 
@@ -121,9 +132,9 @@ function emptyInputLogin($username, $pwd)
 	return $result;
 }
 
-function loginUser($conn, $username, $pwd)
+function LoginUser($conn, $username, $pwd)
 {
-	$uidExist = uidExist($conn, $username);
+	$uidExist = UidExist($conn, $username);
 
 	//Check the id that user has input exists in CB	
 	if ($uidExist === false){
