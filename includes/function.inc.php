@@ -1,10 +1,10 @@
 ﻿<?php
 
-function EmptyInputSignup($name, $email, $username, $pwd, $pwdrepeat)
+function EmptyInputSignup($name, $email, $userName, $pwd, $pwdRepeat)
 {
 	$result;
 
-	if( empty($name) || empty($email) || empty($username) ||empty($pwd) ||empty($pwdrepeat))
+	if( empty($name) || empty($email) || empty($userName) ||empty($pwd) ||empty($pwdRepeat))
 	{
 		$result = true;
 	}
@@ -16,10 +16,10 @@ function EmptyInputSignup($name, $email, $username, $pwd, $pwdrepeat)
 }
 
 
-function ValidUid($username)
+function ValidUserId($userName)
 {
 	$result;
-	if( !preg_match("/^[a-zA-Z0-9]*$/", $username))
+	if( !preg_match("/^[a-zA-Z0-9]*$/", $userName))
 	{
 		$result = true;
 	}
@@ -44,10 +44,10 @@ function ValidEmail($email){
 	return $result;
 }
 
-function PwdMatch($pwd, $pwdrepeat)
+function PwdMatch($pwd, $pwdRepeat)
 {
 	$result;
-	if($pwd !== $pwdrepeat)
+	if($pwd !== $pwdRepeat)
 	{
 		$result = true;
 	}
@@ -58,7 +58,7 @@ function PwdMatch($pwd, $pwdrepeat)
 	return $result;
 }
 
-function UidExist($conn, $username)
+function UidExist($conn, $userName)
 {
 	$sql = "SELECT * FROM users WHERE userUid = ?;";
 	$stmt = mysqli_stmt_init($conn);
@@ -69,7 +69,7 @@ function UidExist($conn, $username)
 			exit();
 		}
 	
-		mysqli_stmt_bind_param($stmt, "s", $username);
+		mysqli_stmt_bind_param($stmt, "s", $userName);
 		mysqli_stmt_execute($stmt);
 	
 		$resultData = mysqli_stmt_get_result($stmt);
@@ -90,7 +90,7 @@ function UidExist($conn, $username)
 }
 
 
-function CreateUser($conn, $name, $email, $username, $pwd)
+function CreateUser($conn, $name, $email, $userName, $pwd)
 {
 	$sql = "INSERT INTO users (userName, userEmail, userUid, userPwd) VALUES(?, ?, ?, ?)";
 	$stmt = mysqli_stmt_init($conn);
@@ -104,7 +104,7 @@ function CreateUser($conn, $name, $email, $username, $pwd)
 	
 		$hashedPwd = password_hash($pwd, PASSWORD_DEFAULT);
 	
-		mysqli_stmt_bind_param($stmt, "ssss", $name, $email, $username, $hashedPwd);
+		mysqli_stmt_bind_param($stmt, "ssss", $name, $email, $userName, $hashedPwd);
 		mysqli_stmt_execute($stmt);
 		mysqli_stmt_close($stmt);
 	
@@ -117,11 +117,11 @@ function CreateUser($conn, $name, $email, $username, $pwd)
 	
 }
 
-function EmptyInputLogin($username, $pwd)
+function EmptyInputLogin($userName, $pwd)
 {
 	$result;
 
-	if(empty($username) ||empty($pwd))
+	if(empty($userName) ||empty($pwd))
 	{
 		$result = true;
 	}
@@ -132,9 +132,9 @@ function EmptyInputLogin($username, $pwd)
 	return $result;
 }
 
-function LoginUser($conn, $username, $pwd)
+function LoginUser($conn, $userName, $pwd)
 {
-	$uidExist = UidExist($conn, $username);
+	$uidExist = UidExist($conn, $userName);
 
 	//Check the id that user has input exists in CB	
 	if ($uidExist === false){
