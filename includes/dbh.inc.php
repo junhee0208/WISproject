@@ -1,10 +1,10 @@
 ﻿<?php
 
 
-$serverName = "localhost";
-$dbUsername = "root";
-$dbPassword = "";
-$dbName = "dbwis";
+$serverName = "fdb27.biz.nf";
+$dbUsername = "3808282_junhee";
+$dbPassword = "A5VDP(Km85/V+xy}";
+$dbName = "3808282_junhee";
 
 
 $conn = mysqli_connect($serverName, $dbUsername, $dbPassword, $dbName);
