@@ -42,10 +42,10 @@
                     <h3>Social Links: </h3>
                     <table id="socialLinks">
                     <tr>
-                        <td><a href=""><img class="imgStyle" src="Properties/instagram.png" style="margin-left:0"></a></td>
-                        <td><a href=""><img class="imgStyle" src="Properties/facebook.png" ></a></td>
-                        <td><a href=""><img class="imgStyle" src="Properties/youtube.png"  ></a></td>
-                        <td><a href=""><img class="imgStyle" src="Properties/tweeter.png"  ></a></td>
+                        <td><a href=""><img class="imgStyle" src="properties/instagram.png" style="margin-left:0"></a></td>
+                        <td><a href=""><img class="imgStyle" src="properties/facebook.png" ></a></td>
+                        <td><a href=""><img class="imgStyle" src="properties/youtube.png"  ></a></td>
+                        <td><a href=""><img class="imgStyle" src="properties/tweeter.png"  ></a></td>
                     </tr>
                     </table>
                 </td>
