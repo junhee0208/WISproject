@@ -1,8 +1,42 @@
+
+#body {width:100%}
+
 .wrapper{
 	width:80%;
-	font-family:Verdana, Geneva, Tahoma, sans-serif;
+	margin-left: auto !important;
+	margin-right: auto !important;
+	font-family:Verdana;
 	background-color:antiquewhite;
+	
 }
+
+.wrapper_1{
+	width:80%;
+	margin-left: auto !important;
+	margin-right: auto !important;
+	font-family:Verdana;
+	background-color:darkkhaki;
+}
+
+.linkList{
+	list-style-type: none;
+}
+
+.signup-form{
+	margin-left:20%;
+}
+
+#tblPrograms tr td{
+	width:50%; border: 1px solid black;
+}
+
+#tblHeader{
+	width:100%;
+}
+#tblHeader tr td ul li{
+	margin-right:30px;
+}
+
 
 ul#horizontal-list {
 	margin:0;
@@ -12,12 +46,10 @@ ul#horizontal-list {
 		display: inline;
 	}
 
+h1 {font-family:Verdana};
+
 #footer {
 	width:80%;
 	margin-left: auto;
-	margin-right:auto;;
+	margin-right:auto;
 }	
-
-	#footer img{
-		opacity: 0.5;
-	}	

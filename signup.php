@@ -3,9 +3,13 @@
 ?>
 
 
-<section class="signup-form">
+<link rel="stylesheet" type="text/css" href="css/style.css"/>
+
+
+<div class="wrapper" style="margin-left:auto; margin-right:auto">
+<section class="signup-form" style="margin-left:20px">
 	<h2>Sign up</h2>
-	<div class="signup-form">
+	<div class="signup-form" >
 		<form action="includes/signup.inc.php" method="post">
 			<input type="text" name="name" placeholder="Full name..."><br/><br/>
 			<input type="text" name="email" placeholder="Email..."><br/><br/>
@@ -46,7 +50,7 @@
 		}
 	?>
 </section>
-
+</div>
 
 
 <?php
