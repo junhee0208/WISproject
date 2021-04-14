@@ -68,7 +68,7 @@ function uidExist($conn, $username)
 		exit();
 	}
 
-	mysqli_stmt_bind_param($stmt, "ss", $username);
+	mysqli_stmt_bind_param($stmt, "s", $username);
 	mysqli_stmt_execute($stmt);
 
 	$resultData = mysqli_stmt_get_result($stmt);
@@ -102,7 +102,7 @@ function createUser($conn, $name, $email, $username, $pwd)
 	mysqli_stmt_execute($stmt);
 	mysqli_stmt_close($stmt);
 
-	header("location: ../signup.php?error=none");
+	header("location: ../login.php?error=none");
 	exit();
 }
 
@@ -125,22 +125,23 @@ function loginUser($conn, $username, $pwd)
 {
 	$uidExist = uidExist($conn, $username);
 
+	//Check the id that user has input exists in CB	
 	if ($uidExist === false){
-		header("location: ../signup.php?error=wronglogin");
+		header("location: ../login.php?error=wrongId");
 		exit();
 	}
 
 	$pwdHashed = $uidExist["userPwd"];
-	$checkPwd = password_verity($pwd, $pwdHashed);
+	$checkPwd = password_verify($pwd, $pwdHashed);
 
 	if($checkPwd === false){
-		header("location: ../signup.php?error=wronglogin");
+		header("location: ../login.php?error=wrongPassword");
 		exit();
 	}
 	else if($checkPwd === true){
 		//session!!
 		session_start();
-		$_SESSION["userid"] = $uidExist["userid"];
+		$_SESSION["userid"] = $uidExist["userId"];
 		$_SESSION["useruid"] = $uidExist["userUid"];
 		header("location: ../index.php");
 		exit();
