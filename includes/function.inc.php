@@ -58,7 +58,7 @@ function PwdMatch($pwd, $pwdRepeat)
 	return $result;
 }
 
-function UidExist($conn, $userName)
+function UserIdExist($conn, $userName)
 {
 	$sql = "SELECT * FROM users WHERE userUid = ?;";
 	$stmt = mysqli_stmt_init($conn);
@@ -134,7 +134,7 @@ function EmptyInputLogin($userName, $pwd)
 
 function LoginUser($conn, $userName, $pwd)
 {
-	$uidExist = UidExist($conn, $userName);
+	$uidExist = UserIdExist($conn, $userName);
 
 	//Check the id that user has input exists in CB	
 	if ($uidExist === false){

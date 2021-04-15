@@ -11,7 +11,7 @@ if(isset($_POST["submit"])){
 	require_once 'dbh.inc.php';
 	require_once 'function.inc.php';
 
-	if(emptyInputSignup($name, $email, $userName, $pwd, $pwdRepeat) !== false){
+	if(EmptyInputSignup($name, $email, $userName, $pwd, $pwdRepeat) !== false){
 		header("location: ../signup.php?error=emptyinput");
 		exit();
 	}
@@ -31,7 +31,7 @@ if(isset($_POST["submit"])){
 		exit();
 	}
 
-	if(UidExist($conn, $userName) !== false){
+	if(UserIdExist($conn, $userName) !== false){
 		header("location: ../signup.php?error=usernametaken");
 		exit();
 	}
