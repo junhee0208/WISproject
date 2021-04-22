@@ -65,14 +65,16 @@ function UserIdExist($conn, $userName)
 
 	try{
 		if(!mysqli_stmt_prepare($stmt, $sql)){
-			if (headers_sent()) {
-				die("Redirect failed. Please click on this link: <a href=...>");
-			}
-			else{
-				exit(header("location: ../signup.php?error=stmtfailed"));
-			}
+			// if (headers_sent()) {
+			// 	die("Redirect failed. Please click on this link: <a href=...>");
+			// }
+			// else{
+			// 	exit(header("location: ../signup.php?error=stmtfailed"));
+			// }
 			//header("location: ../signup.php?error=stmtfailed");
-			//exit();
+			$msg = "stmtfailed";
+			echo("<script>location.href = '../signup.php?msg=$msg';</script>");
+			exit();
 		}
 	
 		mysqli_stmt_bind_param($stmt, "s", $userName);
@@ -165,3 +167,4 @@ function LoginUser($conn, $userName, $pwd)
 
 	}
 }
+?>
