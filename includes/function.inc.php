@@ -65,8 +65,14 @@ function UserIdExist($conn, $userName)
 
 	try{
 		if(!mysqli_stmt_prepare($stmt, $sql)){
-			header("location: ../signup.php?error=stmtfailed");
-			exit();
+			if (headers_sent()) {
+				die("Redirect failed. Please click on this link: <a href=...>");
+			}
+			else{
+				exit(header("location: ../signup.php?error=stmtfailed"));
+			}
+			//header("location: ../signup.php?error=stmtfailed");
+			//exit();
 		}
 	
 		mysqli_stmt_bind_param($stmt, "s", $userName);
